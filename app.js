@@ -11,6 +11,8 @@ const methodOverride = require('method-override');
 
 
 const app = express();
+dotenv.config();
+connectToMongoDB();
 
 //Middlewares
 app.use(cors());
@@ -29,8 +31,7 @@ app.use(session({
     cookie: { secure: true }
 })); 
 
-dotenv.config();
-connectToMongoDB();
+
 
 app.use('/api/auth', authRoutes);
 app.use('/api/blogs', blogRoutes);
@@ -39,7 +40,7 @@ app.use('/api/blogs', blogRoutes);
 // Handle 404 Not Found
 app.use((req, res, next) => {
     res.status(404).json({ message: 'This Route is Not Found' });
-});
+}); 
 
 //Global Error Handling
 app.use((err, req, res, next) => {

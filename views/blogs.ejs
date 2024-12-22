@@ -64,24 +64,35 @@
             background-color: #337ab7;
             color: #fff;
         }
+
+        .error-message {
+            text-align: center;
+            color: red;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
     <h1>Published Blogs</h1>
-    <ul>
-        <% blogs.forEach(blog => { %>
-            <li>
-                <h2><a href="/api/blogs/"><%= blog.title %></a></h2>
-            
-                <p><%= blog.description %></p>
-                <p><%= blog.body %></p>
-                <p>Read Count: <%= blog.read_count %></p>
-            </li>
-        <% }) %>
-    </ul>
-   <div  class="signin-signup" >
-    <a href="/api/auth/signin">SIGNIN</a>
-    <a href="/api/auth/signup">SIGNUP</a>
-   </div>
+    <% if (blogs.length === 0) { %>
+        <div class="error-message">
+            <p>No blogs found. Please check back later.</p>
+        </div>
+    <% } else { %>
+        <ul>
+            <% blogs.forEach(blog => { %>
+                <li>
+                    <h2><a href="/api/blogs/<%= blog.id %>"><%= blog.title %></a></h2>
+                    <p><%= blog.description %></p>
+                    <p><%= blog.body %></p>
+                    <p>Read Count: <%= blog.read_count %></p>
+                </li>
+            <% }) %>
+        </ul>
+    <% } %>
+    <div class="signin-signup">
+        <a href="/api/auth/signin">SIGNIN</a>
+        <a href="/api/auth/signup">SIGNUP</a>
+    </div>
 </body>
 </html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blogs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: #337ab7;
+        }
+
+        a:hover {
+            color: #23527c;
+        }
+
+        .signin-signup {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .signin-signup a {
+            margin: 0 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .signin-signup a:hover {
+            background-color: #337ab7;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Published Blogs</h1>
+    <ul>
+        <% blogs.forEach(blog => { %>
+            <li>
+                <h2><a href="/api/blogs/"><%= blog.title %></a></h2>
+            
+                <p><%= blog.description %></p>
+                <p><%= blog.body %></p>
+                <p>Read Count: <%= blog.read_count %></p>
+            </li>
+        <% }) %>
+    </ul>
+   <div  class="signin-signup" >
+    <a href="/api/auth/signin">SIGNIN</a>
+    <a href="/api/auth/signup">SIGNUP</a>
+   </div>
+</body>
+</html>

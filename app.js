@@ -3,6 +3,7 @@ const session = require("express-session");
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const MongoStore = require('connect-mongo');
 const authRoutes = require('./routes/authRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 const connectToMongoDB = require('./config/db');
@@ -23,6 +24,7 @@ app.set('views', 'views' );
 app.use(session({
     secret: process.env.JWT_SECRET, 
     resave: false,
+    store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
     saveUninitialized: true,
     cookie: { secure: true }
 })); 

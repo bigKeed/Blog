@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const MongoStore = require('connect-mongo');
+const { rateLimit } = require('express-rate-limit');
 const authRoutes = require('./routes/authRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 const connectToMongoDB = require('./config/db');
@@ -23,6 +24,19 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.set('views', 'views' );
 
+app.use('/api/auth', authRoutes);
+app.use('/api/blogs', blogRoutes);
+
+//Rate Limiting 
+const limiter = rateLimit({
+	windowMs: 5 * 60 * 1000, 
+	limit: 10, 
+	standardHeaders: 'draft-8', 
+	legacyHeaders: false, 
+})
+
+app.use(limiter);
+
 app.use(session({
     secret: process.env.JWT_SECRET, 
     resave: false,
@@ -34,9 +48,6 @@ app.use(session({
 })); 
 
 
-
-app.use('/api/auth', authRoutes);
-app.use('/api/blogs', blogRoutes);
 
 
 // Handle 404 Not Found

@@ -10,14 +10,14 @@ exports.signup = async (req, res) => {
   if (emailExists) return res.json('User already exists');
 
 
-    const { first_name, last_name, username, email, password } = req.body;
+    const { firstname, lastname, username, email, password } = req.body;
    
-    if ( !first_name || !last_name || !username || !email || !password) {
+    if ( !firstname || !lastname || !username || !email || !password) {
         return res.status(400).json({ error: 'All fields are required' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ first_name, last_name, username,  email, password: hashedPassword });
+    const user = new User({ firstname, lastname, username,  email, password: hashedPassword });
     await user.save(); 
     res.redirect('/api/auth/signin');
 };

@@ -188,3 +188,6 @@
 {"level":"info","message":"Connected to database successfully","timestamp":"2025-02-09T11:20:27.968Z"}
 {"clientIP":"::1","level":"info","message":"HTTP Request","method":"POST","timestamp":"2025-02-09T11:22:07.583Z","url":"/api/auth/signup"}
 {"level":"info","message":"Connected to database successfully","timestamp":"2025-02-09T18:58:47.139Z"}
+{"level":"info","message":"Winston logging is set up!","timestamp":"2025-02-09T20:00:04.132Z"}
+{"level":"info","message":"Server is running on port 5000","timestamp":"2025-02-09T20:00:05.400Z"}
+{"level":"info","message":"Connected to database successfully","timestamp":"2025-02-09T20:00:07.453Z"}

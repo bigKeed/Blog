@@ -26,3 +26,4 @@ const blogValidator = joi.object({
   .max(255)
   .required(),
 });
+ 

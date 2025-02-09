@@ -3,14 +3,16 @@ const session = require("express-session");
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const logger = require('./logger/logger');
 const MongoStore = require('connect-mongo');
+const httpLoggerMiddleware = require('./logger/httpLogger')
 const { rateLimit } = require('express-rate-limit');
 const authRoutes = require('./routes/authRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 const connectToMongoDB = require('./config/db');
 const methodOverride = require('method-override');
-
-
+ 
+ 
 const app = express();
 dotenv.config();
 connectToMongoDB();
@@ -24,6 +26,9 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.set('views', 'views' );
 
+// Log requests
+app.use(httpLoggerMiddleware);
+
 app.use('/api/auth', authRoutes);
 app.use('/api/blogs', blogRoutes);
 
@@ -36,6 +41,7 @@ const limiter = rateLimit({
 })
 
 app.use(limiter);
+
 
 app.use(session({
     secret: process.env.JWT_SECRET, 
@@ -57,7 +63,7 @@ app.use((req, res, next) => {
 
 //Global Error Handling
 app.use((err, req, res, next) => {
-    console.error(err.stack);
+    logger.error(err.stack);
     res.status(500).json({ message: 'Internal Server Error' });
 });
 

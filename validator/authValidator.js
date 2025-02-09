@@ -2,7 +2,6 @@ const joi = require('joi');
 
 exports.validateNewUserMiddleware = async (req, res, next) => {
   const NewUserPayload = req.body;
-  console.log(JSON.stringify(req.body, null, 2))
   try {
     await validateNewUser.validateAsync(NewUserPayload)
     next();

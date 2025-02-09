@@ -116,7 +116,7 @@ exports.getBlogs = async (req, res) => {
             limit: limitNumber,
             blogs, }); //here
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 };
@@ -160,7 +160,7 @@ exports.getOwnerBlogs = async (req, res) => {
 
         res.render('blog', {blogs})
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         res.status(500).json({ message: 'Internal Server Error' });
     }
 };
@@ -185,7 +185,7 @@ exports.getBlogById = async (req, res) => {
         
     res.render('blog', { blog, user: req.user }); 
    } catch (error) {
-        console.error(error)
+        logger.error(error)
         res.status(500).json({ message: 'Internal Server Error' });
 }}; 
 
@@ -208,7 +208,7 @@ exports.updateBlog = async (req, res) => {
     await blog.save();
     res.redirect('/api/blogs/') 
    } catch (error) {
-    console.error(error)
+    logger.error(error)
     res.status(500).json({ message: 'Internal Server Error' });
    }
 };
@@ -233,7 +233,7 @@ exports.deleteBlog = async (req, res) => {
     await Blog.deleteOne({ _id: id });
     res.redirect('/api/blogs/');
    } catch (error) {
-    console.error(error)
+    logger.error(error)
         res.status(500).json({ message: 'Internal Server Error' });
    }
 };

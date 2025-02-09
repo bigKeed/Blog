@@ -15,7 +15,7 @@ router.get('/authors/:authorId', authMiddleware, async (req, res) => {
         const blogs = await Blog.find({ author: req.params.authorId }); // Fetch blogs by author ID
         res.render('blog', { blogs });
     } catch (error) {
-        console.error(error);
+        logger.error(error);
         res.status(500).send('Internal Server Error');
     } 
 });  

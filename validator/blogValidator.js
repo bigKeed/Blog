@@ -21,6 +21,10 @@ const blogValidator = joi.object({
   .required(),
   author: joi.number()
   .integer,
+  tags: joi.string()
+  .min(3)
+  .max(255)
+  .required(),
   body: joi.string()
   .min(3)
   .max(255)
